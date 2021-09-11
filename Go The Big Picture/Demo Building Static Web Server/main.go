@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request){
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		names := r.URL.Query()["name"]
 		var name string
 		if len(names) == 1 {
@@ -17,7 +17,7 @@ func main() {
 		enc := json.NewEncoder(w)
 		err := enc.Encode(m)
 		if err != nil {
-			return 
+			return
 		}
 	})
 
