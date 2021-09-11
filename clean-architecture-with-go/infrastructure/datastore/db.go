@@ -3,9 +3,9 @@ package datastore
 import (
 	"log"
 
+	"clean-architecture-with-go/config"
 	"github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
-	"clean-architecture-with-go/config"
 )
 
 func NewDB() *gorm.DB {
