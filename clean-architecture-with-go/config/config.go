@@ -1,14 +1,12 @@
 package config
 
 import (
+	"bytes"
 	"fmt"
+	"github.com/davecgh/go-spew/spew"
+	"github.com/spf13/viper"
 	"log"
 	"os"
-	"path/filepath"
-
-	"github.com/davecgh/go-spew/spew"
-
-	"github.com/spf13/viper"
 )
 
 type config struct {
@@ -35,10 +33,23 @@ func ReadConfig() {
 
 	viper.SetConfigName("config")
 	viper.SetConfigType("yml")
-	viper.AddConfigPath(filepath.Join("config"))
+	var yamlExample = []byte(`
+database:
+  user: root
+  password:
+  net: tcp
+  addr: 127.0.0.1:3306
+  dbname: golang-clean-architecture
+  allowNativePasswords: true
+  params:
+    parseTime: "true"
+
+server:
+  address: 8080
+`)
 	viper.AutomaticEnv()
 
-	if err := viper.ReadInConfig(); err != nil {
+	if err := viper.ReadConfig(bytes.NewBuffer(yamlExample)); err != nil {
 		fmt.Println(err)
 		log.Fatalln(err)
 	}
